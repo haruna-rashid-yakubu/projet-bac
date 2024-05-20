@@ -1,0 +1,416 @@
+// const nodemailer = require("nodemailer");
+// const express = require("express");
+// const sendMail = require("./sendMail");
+// const router = express.Router();
+// const Invoice = require("../models/Invoice");
+// const ejs = require('ejs');
+// const fs = require('fs');
+// const path = require('path');
+
+
+// // @route   GET api/invoices
+// // @desc    Get all invoices
+// // @access  Public
+// router.get("/", async (req, res) => {
+//   try {
+//     const invoices = await Invoice.find().sort({ date: -1 });
+//     res.send(invoices);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
+
+// const templatePath = path.join(__dirname, 'email.ejs');
+// const template = fs.readFileSync(templatePath, 'utf8')
+
+
+// // @route   POST api/invoices
+// // @desc    Add an invoice
+// // @access  Public
+// router.post("/", async (req, res) => {
+//   const {
+//     id,
+//     createdAt,
+//     paymentDue,
+//     description,
+//     paymentTerms,
+//     clientName,
+//     clientEmail,
+//     status,
+//     senderAddress,
+//     clientAddress,
+//     items,
+//     total,
+//   } = req.body;
+//   try {
+//     let newInvoice = new Invoice({
+//       id,
+//       createdAt,
+//       paymentDue,
+//       description,
+//       paymentTerms,
+//       clientName,
+//       clientEmail,
+//       status,
+//       senderAddress,
+//       clientAddress,
+//       items,
+//       total,
+//     });
+
+//     const invoice = await newInvoice.save();
+//     const html = ejs.render(template, data);
+
+//     // Email sending function
+//     async function sendEmail() {
+//       let transporter = nodemailer.createTransport({
+//         service: "gmail",
+//         auth: {
+//           user: "worketyamo.dev@gmail.com",
+//           pass: "rnvp yole txhx xlhj",
+//         },
+//       });
+
+
+//       let mailOptions = {
+//         from: "worketyamo.dev@gmail.com",
+//         to: "worketyamo.melen@gmail.com",
+//         subject: "Reçu de Facture",
+//         html: html,
+//       };
+
+//       transporter.sendMail(mailOptions, (error, info) => {
+//         if (error) {
+//           console.log(error);
+//         } else {
+//           console.log("Email envoyé: " + info.response);
+//         }
+//       });
+//     }
+
+//     sendEmail();
+
+//     res.send(invoice);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
+// // @route   PUT api/invoices/:id
+// // @desc    Edit an invoice
+// // @access  Public
+// router.put("/:id", async (req, res) => {
+//   const {
+//     id,
+//     createdAt,
+//     paymentDue,
+//     description,
+//     paymentTerms,
+//     clientName,
+//     clientEmail,
+//     status,
+//     senderAddress,
+//     clientAddress,
+//     items,
+//     total,
+//   } = req.body;
+//   const invoiceFields = {};
+//   if (id) invoiceFields.id = id;
+//   if (createdAt) invoiceFields.createdAt = createdAt;
+//   if (paymentDue) invoiceFields.paymentDue = paymentDue;
+//   if (description) invoiceFields.description = description;
+//   if (paymentTerms) invoiceFields.paymentTerms = paymentTerms;
+//   if (clientName) invoiceFields.clientName = clientName;
+//   if (clientEmail) invoiceFields.clientEmail = clientEmail;
+//   if (status) invoiceFields.status = status;
+//   if (senderAddress) invoiceFields.senderAddress = senderAddress;
+//   if (clientAddress) invoiceFields.clientAddress = clientAddress;
+//   if (items) invoiceFields.items = items;
+//   if (total) invoiceFields.total = total;
+
+//   try {
+//     let invoice = await Invoice.findById(req.params.id);
+//     if (!invoice) return res.status(404).json({ msg: "Invoice not found" });
+//     invoice = await Invoice.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         $set: invoiceFields,
+//       },
+//       { new: true }
+//     );
+//     res.json(invoice);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
+// // @route   DELETE api/invoices/:id
+// // @desc    Delete an invoice
+// // @access  Public
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     let invoice = await Invoice.findById(req.params.id);
+//     if (!invoice) return res.status(404).json({ msg: "Invoice not found" });
+//     await Invoice.findByIdAndRemove(req.params.id);
+//     res.json({ msg: "Invoice removed" });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
+// module.exports = router;
+
+
+
+
+
+// <body
+//     style="padding: 0; margin: 0; -webkit-font-smoothing:antialiased; background-color:#f1f1f1; -webkit-text-size-adjust:none;">
+//     <!--Main Parent Table -->
+//     <table width="100%" border="0" cellpadding="0" direction="ltr" bgcolor="#f1f1f1" cellspacing="0" role="presentation"
+//         style="width: 640px; min-width: 640px; margin:0 auto 0 auto;">
+//         <tbody>
+//             <tr>
+//                 <td style="display:none;font-size:0;line-height:0;color:#111111;">
+//                     Sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+//                     dolore magnam aliquam quaerat
+//                 </td>
+//             </tr>
+//             <tr>
+//                 <td>
+//                     <!--Content Starts Here -->
+//                     <table cellpadding="0" cellspacing="0" border="0" align="center" width="640"
+//                         style="width: 640px; min-width: 640px;" role="presentation" bgcolor="#f1f1f1">
+//                         <tr>
+//                             <td height="30" style="line-height:30px;min-height:30px;">
+//                             </td>
+//                         </tr>
+//                     </table>
+//                     <!--Top Header Starts Here -->
+//                     <table border="0" bgcolor="#383e56" cellpadding="0" cellspacing="0" width="640" role="presentation"
+//                         width="640" style="width: 640px; min-width: 640px;" align="center" class="table-container ">
+//                         <tbody>
+//                             <tr width="640" style="width: 640px; min-width: 640px; " align="center">
+//                                 <td>
+//                                     <table cellpadding="0" cellspacing="0" border="0" align="center" width="640"
+//                                         style="width: 640px; min-width: 640px;" role="presentation" bgcolor="#383e56">
+//                                         <tr>
+//                                             <td height="35" style="line-height:35px;min-height:35px;">
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                     <table cellpadding="0" cellspacing="0" border="0" width="640"
+//                                         style="width: 640px; min-width: 640px;" role="presentation" align="center"
+//                                         bgcolor="#383e56">
+//                                         <tr>
+//                                             <td align="left">
+//                                                 <table cellpadding="0" cellspacing="0" border="0" role="presentation"
+//                                                     align="center" bgcolor="#383e56">
+//                                                     <tr>
+//                                                         <td>
+//                                                             <table cellpadding="0" cellspacing="0" border="0"
+//                                                                 align="center" role="presentation">
+//                                                                 <tr>
+//                                                                     <td align="center">
+//                                                                         <img src="<%= logoSrc %>" alt="Logo" width="220"
+//                                                                             height="35" class="logo">
+//                                                                     </td>
+//                                                                 </tr>
+//                                                             </table>
+//                                                             <table cellpadding="0" cellspacing="0" border="0"
+//                                                                 align="center" width="640"
+//                                                                 style="width: 640px; min-width: 640px;"
+//                                                                 role="presentation" bgcolor="#383e56">
+//                                                                 <tr>
+//                                                                     <td height="35"
+//                                                                         style="line-height:35px;min-height:35px;">
+//                                                                     </td>
+//                                                                 </tr>
+//                                                             </table>
+//                                                         </td>
+//                                                     </tr>
+//                                                 </table>
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                 </td>
+//                             </tr>
+//                         </tbody>
+//                     </table>
+//                     <!--Top Header Ends Here -->
+//                     <!--Welcome  Section Ends Here -->
+//                     <table cellpadding="0" cellspacing="0" border="0" align="center" width="640"
+//                         style="width: 640px; min-width: 640px;" role="presentation" bgcolor="#ffffff"
+//                         class="table-container ">
+//                         <tr>
+//                             <td height="20" style="line-height:20px;min-height:20px;">
+//                             </td>
+//                         </tr>
+//                         <tr>
+//                             <td align="center">
+//                                 <table cellpadding="0" cellspacing="0" border="0" width="640"
+//                                     style="width: 640px; min-width: 640px;" role="presentation">
+//                                     <tr>
+//                                         <td align="center">
+//                                             <table cellpadding="0" cellspacing="0" border="0" width="640"
+//                                                 style="width: 640px; min-width: 640px;" role="presentation">
+//                                                 <tr>
+//                                                     <td align="center">
+//                                                         <table cellpadding="0" cellspacing="0" border="0" align="center"
+//                                                             width="640" style="width: 640px; min-width: 640px;"
+//                                                             role="presentation" class="table-container ">
+//                                                             <tr>
+//                                                                 <td>
+//                                                                     <table cellpadding="0" cellspacing="0" border="0"
+//                                                                         width="640" align="center"
+//                                                                         style="width: 640px; min-width: 640px;"
+//                                                                         role="presentation">
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 24px; font-weight: 700; line-height: 36px; color: #333333;">
+//                                                                                 <p>Hello <%= clientName %>,</p>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #333333;">
+//                                                                                 <p>We hope you are doing well. We wanted
+//                                                                                     to remind you about the invoice due
+//                                                                                     for your recent purchase:</p>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #333333;">
+//                                                                                 <table cellpadding="0" cellspacing="0"
+//                                                                                     border="0" align="left"
+//                                                                                     role="presentation">
+//                                                                                     <tr>
+//                                                                                         <td style="padding: 10px 0;">
+//                                                                                             <strong>Invoice
+//                                                                                                 Number:</strong>
+//                                                                                             <%= invoiceNumber %>
+//                                                                                         </td>
+//                                                                                     </tr>
+//                                                                                     <tr>
+//                                                                                         <td style="padding: 10px 0;">
+//                                                                                             <strong>Invoice
+//                                                                                                 Date:</strong>
+//                                                                                             <%= invoiceDate %>
+//                                                                                         </td>
+//                                                                                     </tr>
+//                                                                                     <tr>
+//                                                                                         <td style="padding: 10px 0;">
+//                                                                                             <strong>Due Date:</strong>
+//                                                                                             <%= dueDate %>
+//                                                                                         </td>
+//                                                                                     </tr>
+//                                                                                     <tr>
+//                                                                                         <td style="padding: 10px 0;">
+//                                                                                             <strong>Amount Due:</strong>
+//                                                                                             <%= amountDue %>
+//                                                                                         </td>
+//                                                                                     </tr>
+//                                                                                 </table>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #333333;">
+//                                                                                 <p>Please make the payment by the due
+//                                                                                     date to avoid any late fees. If you
+//                                                                                     have any questions, feel free to
+//                                                                                     contact us at <a
+//                                                                                         href="mailto:<%= email %>"
+//                                                                                     A    style="color: #333333;">
+//                                                                                         <%= email %>
+//                                                                                     </a>.</p>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #333333;">
+//                                                                                 <p>Thank you for your prompt attention
+//                                                                                     to this matter.</p>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td align="left"
+//                                                                                 style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; color: #333333;">
+//                                                                                 <p>Best regards,<br>
+//                                                                                     <%= companyName %> Team
+//                                                                                 </p>
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                         <tr>
+//                                                                             <td height="40"
+//                                                                                 style="line-height:40px;min-height:40px;">
+//                                                                             </td>
+//                                                                         </tr>
+//                                                                     </table>
+//                                                                 </td>
+//                                                             </tr>
+//                                                         </table>
+//                                                     </td>
+//                                                 </tr>
+//                                             </table>
+//                                         </td>
+//                                     </tr>
+//                                 </table>
+//                             </td>
+//                         </tr>
+//                     </table>
+//                     <!--Footer Section Starts Here -->
+//                     <table cellpadding="0" cellspacing="0" border="0" align="center" width="640"
+//                         style="width: 640px; min-width: 640px;" role="presentation" bgcolor="#383e56"
+//                         class="table-container ">
+//                         <tr>
+//                             <td height="30" style="line-height:30px;min-height:30px;">
+//                             </td>
+//                         </tr>
+//                         <tr>
+//                             <td align="center">
+//                                 <table cellpadding="0" cellspacing="0" border="0" width="640"
+//                                     style="width: 640px; min-width: 640px;" role="presentation">
+//                                     <tr>
+//                                         <td align="center">
+//                                             <table cellpadding="0" cellspacing="0" border="0" width="640"
+//                                                 style="width: 640px; min-width: 640px;" role="presentation">
+//                                                 <tr>
+//                                                     <td align="center">
+//                                                         <table cellpadding="0" cellspacing="0" border="0" align="center"
+//                                                             width="640" style="width: 640px; min-width: 640px;"
+//                                                             role="presentation" class="table-container ">
+//                                                             <tr>
+//                                                                 <td align="center"
+//                                                                     style="font-family: 'Lato', Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #ffffff;">
+//                                                                     <p>&copy; <%= new Date().getFullYear() %>
+//                                                                             <%= companyName %>. All Rights Reserved.</p>
+//                                                                 </td>
+//                                                             </tr>
+//                                                             <tr>
+//                                                                 <td height="30"
+//                                                                     style="line-height:30px;min-height:30px;">
+//                                                                 </td>
+//                                                             </tr>
+//                                                         </table>
+//                                                     </td>
+//                                                 </tr>
+//                                             </table>
+//                                         </td>
+//                                     </tr>
+//                                 </table>
+//                             </td>
+//                         </tr>
+//                     </table>
+//                     <!--Footer Section Ends Here -->
+//                 </td>
+//             </tr>
+//         </tbody>
+//     </table>
+// </body>
