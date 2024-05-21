@@ -8,11 +8,6 @@ const Navbar = () => {
 
   return (
     <nav id='navbar' className={dark ? 'dark' : undefined}>
-      <div id='home-icon'>
-        <div id='home-icon-bot'></div>
-        <div id='home-icon-circle'></div>
-        <div id='home-icon-triangle'></div>
-      </div>
       <div id='mode-toggle' onClick={toggleDarkMode}>
         {/* Change toggle image if in dark mode */}
         {dark ? (

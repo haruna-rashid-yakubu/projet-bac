@@ -59,7 +59,7 @@ const Invoices = () => {
               src={require("../../images/illustration-empty.svg").default}
               alt="emtpy-illustration"
             />
-            <h2 className={dark ? "dark" : undefined}>There is nothing here</h2>
+            <h2 className={dark ? "dark" : undefined}>IL n'y a pas de factures</h2>
             <p className={dark ? "dark" : undefined}>
               Créez une facture en cliquant sur le{" "}
               <span style={{ fontWeight: "700" }}>Nouvelle facture</span>bouton

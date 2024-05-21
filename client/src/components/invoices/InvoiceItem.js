@@ -59,7 +59,7 @@ const InvoiceItem = ({ invoice }) => {
         >
           <div className={dark ? 'dark dot' : 'dot'}></div>
           <p className={dark ? 'dark item-status' : 'item-status'}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {status === 'paid' ? "payé" : "non payé"}
           </p>
         </div>
         <img

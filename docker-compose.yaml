@@ -1,13 +1,14 @@
 version: '3.8'
-
 # Services
 services:
-  # Server service
+  # Backend
   server:
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile
     container_name: backend
+    networks: 
+      - mern
     ports:
       - "5000:5000"
     env_file: ./.env
@@ -20,34 +21,44 @@ services:
     depends_on:
       - mongodb
 
-  # Client service
+  # Frontend
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
-
+    networks: 
+      - mern
     container_name: frontend
     ports:
-      - "80:80"
+      - "8070:80"
     depends_on:
       - server
 
-  # Database service
+
+  inspector: 
+    image: alpine
+    command: ["sleep", "infinity"]
+    networks: 
+      - mern
+  #Base de données
   mongodb:
     image: mongo:latest
     container_name: mongodb_server
-
+    networks: 
+      - mern
     env_file: ./.env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
-
     ports:
       - "27017:27017"
-
     volumes:
       - ./../mydata:/data/db
+  
 
-# Volumes define
+# Volumes 
 volumes: 
   mydata:
+
+networks:
+  mern:
